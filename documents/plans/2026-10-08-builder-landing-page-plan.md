@@ -104,7 +104,7 @@ landing-page-builder/
 │       └── 2026-10-08-builder-landing-page-plan.md
 ├── lib/
 │   └── utils.ts                 cn() from shadcn init
-├── public/                      emptied of scaffold SVGs; nothing else needed
+├── public/                      absent after phase 1: the scaffold SVGs are deleted and git keeps no empty directory; Next.js does not need it
 ├── components.json              shadcn config
 ├── eslint.config.mjs            keep
 ├── next.config.ts               keep scaffold options; see phase 1 for the one change
