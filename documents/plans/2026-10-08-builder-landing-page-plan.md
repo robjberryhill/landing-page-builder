@@ -486,7 +486,8 @@ Facts from the shadcn CLI 4.21.4 research that shape phase 2:
 
 - `init` defaults to Base UI with the `nova` preset (`-b base -p nova`); Radix is `-b radix`. Styles are named `base-nova`. Base UI has no `asChild`; a link styled as a button is `<a className={buttonVariants({ ... })}>`, and `buttonVariants` can be called from Server Components.
 - `init` installs `shadcn`, `cn`, `class-variance-authority`, `tw-animate-css`, `@base-ui/react`, `lucide-react` as dependencies; `lib/utils.ts` becomes `export { cn } from "cn"`. No PostCSS config is created or needed; the `@tailwindcss/turbopack` loader resolves the `shadcn/tailwind.css` and `tw-animate-css` imports (if it ever does not, `npx shadcn@latest eject` inlines them).
-- `init` rewrites `app/globals.css`: adds the two imports, `@custom-variant dark (&:is(.dark *))`, `@theme inline` color and radius mappings, `:root` and `.dark` oklch blocks, an `@layer base` block, and removes the create-next-app boilerplate. Known bug (shadcn-ui/ui#10391): it sets `--font-sans: var(--font-sans)` in `@theme inline`, so the `next/font` variable must be named `--font-sans` or the page falls back to Times. Phase 1 names it that way before `init` runs.
+- `init` rewrites `app/globals.css`: adds the two imports, `@custom-variant dark (&:is(.dark *))`, `@theme inline` color and radius mappings plus `--font-heading: var(--font-sans)`, `:root` and `.dark` oklch blocks, and an `@layer base` block that ends with `html { @apply font-sans; }`. It removes the scaffold's `:root` values and its `prefers-color-scheme` block, but the `body { font-family: var(--font-sans); }` rule survives; phase 2 step 5 removes it. Known bug (shadcn-ui/ui#10391): it sets `--font-sans: var(--font-sans)` in `@theme inline`, so the `next/font` variable must be named `--font-sans` or the page falls back to Times. Phase 1 names it that way before `init` runs, and phase 2 confirmed the font survives.
+- `init` also runs an "Updating fonts" step that rewrites `app/layout.tsx`: it swaps the Bricolage Grotesque loader for `Geist({subsets:['latin'],variable:'--font-sans'})` and adds a `cn` import. Discard that file's change with `git checkout -- app/layout.tsx` before committing. Nothing else depends on it.
 - Keep the `@custom-variant dark` line even with no dark mode; without it, Tailwind's `dark:` follows the OS and the components' built-in `dark:` classes would switch on for OS-dark visitors.
 - `card`, `button`, `badge` need no `"use client"`; `accordion` (Base UI) is a client primitive wrapped by a server-safe file; `sheet` and `separator` carry `"use client"`. All can be rendered from Server Components as long as no function props cross the boundary.
 
@@ -549,7 +550,7 @@ If it still prompts, answer Base UI and nova. Then
 npx shadcn@latest add button badge card accordion separator sheet
 ```
 
-Expected after both commands: `components.json` with `"style": "base-nova"`, `"tailwind.css": "app/globals.css"`, `"rsc": true`, aliases under `@/`; `lib/utils.ts`; six files in `components/ui/`; `package.json` gains `shadcn`, `cn`, `class-variance-authority`, `tw-animate-css`, `@base-ui/react`, `lucide-react`.
+Expected after both commands: `components.json` with `"style": "base-nova"`, `"tailwind.css": "app/globals.css"`, `"rsc": true`, aliases under `@/`; `lib/utils.ts`; six files in `components/ui/`; `package.json` gains `shadcn`, `cn`, `class-variance-authority`, `tw-animate-css`, `@base-ui/react`, `lucide-react`. `init` also rewrites `app/layout.tsx` to load Geist (see the facts above); restore it with `git checkout -- app/layout.tsx` before going on.
 
 Edit `app/globals.css`, keeping everything `init` generated except as follows:
 
