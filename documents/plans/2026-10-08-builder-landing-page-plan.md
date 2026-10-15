@@ -143,8 +143,8 @@ All components are TypeScript function components with an exported props type, n
 | `BagLabel` | `title: string; origin: string; producer: string; process: string; elevation: string; roastLevel: 1 \| 2 \| 3 \| 4 \| 5; notes: string; roastedOn: string` | Hero (this week's bag), ClosingCta (next week's bag) |
 | `CtaGroup` | `primary: { label: string; href: string }; secondary?: { label: string; href: string }; align?: "left" \| "center"` | Hero, ClosingCta |
 | `Logo` | `className?: string` | SiteHeader, SiteFooter |
-| `NavLinks` | `items: { label: string; href: string }[]; orientation?: "row" \| "column"; onNavigate?: () => void` | SiteHeader (row), MobileNav (column), SiteFooter (row) |
-| `MobileNav` | `items: { label: string; href: string }[]` | SiteHeader (below `md`) |
+| `NavLinks` | `items: readonly { label: string; href: string }[]; orientation?: "row" \| "column"; onNavigate?: () => void` | SiteHeader (row), MobileNav (column), SiteFooter (row) |
+| `MobileNav` | `items: readonly { label: string; href: string }[]` | SiteHeader (below `md`) |
 | `SiteHeader` | none (reads `siteConfig`) | `app/layout.tsx` |
 | `SiteFooter` | none (reads `siteConfig`) | `app/layout.tsx` |
 
@@ -469,7 +469,7 @@ Reference pages: `builder.io/c/docs/get-started-fusion`, `builder.io/c/docs/fusi
 
 ## 6. Build phases
 
-One commit per phase, committed straight to `main` and pushed after each. Pull requests per phase are not worth it here: there is no reviewer, and the pull request practice comes from Builder in phase 9. Every commit message ends with the `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` line. Run every command from the repo root.
+The plan first said one commit per phase straight to `main`; from Phase 1 the work ships as pull requests, one per sub-issue group, branched from `main` and merged in order (the Phase 1 as-built note records the switch). Every commit message ends with the `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` line. Run every command from the repo root.
 
 Facts from the Next.js 16.4 docs that shape the phases (doc paths are under `node_modules/next/dist/docs/01-app/`):
 
@@ -648,7 +648,7 @@ Create `components/site/section-heading.tsx`, `cta-group.tsx`, `bag-label.tsx`, 
 - `CtaGroup`: `<div className={cn("flex flex-col gap-3 sm:flex-row", align === "center" && "justify-center")}>`; primary `<a className={buttonVariants({ size: "lg" })}>`, secondary `buttonVariants({ size: "lg", variant: "outline" })`.
 - `BagLabel`: `<div className="rounded-md border border-espresso bg-card p-6 text-card-foreground">`; top row with `<p className="font-semibold">{title}</p>` and `<Badge variant="outline">Roasted {roastedOn}</Badge>`; a `<dl>` with rows Origin, Producer, Process, Elevation (each `flex justify-between py-2`, divided by `Separator`); a roast row showing five `size-2.5 rounded-full` dots, filled `bg-espresso` for `i < roastLevel` and `bg-line` otherwise, inside a `<div role="img" aria-label={`Roast level ${roastLevel} of 5`}>`; `<p className="mt-4 text-lg">{notes}</p>`.
 - `FeatureCard`: `variant="card"` renders `Card` with `CardHeader` holding the icon in `size-10 rounded-md bg-accent text-accent-foreground` and `CardTitle` wrapping an `<h3>` (the generated `CardTitle` renders a `div` and takes no element override), then `CardContent` with the description; `variant="inline"` renders `<div className="flex gap-3">` with the icon `size-5 mt-1 shrink-0` and a `<div>` holding `<h3 className="font-semibold">` and `<p className="text-muted-foreground">`.
-- `Hero`: `<Section tone="cream">` with `grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center`; left: `<h1 className="text-5xl font-semibold tracking-tight leading-[0.95] sm:text-6xl lg:text-7xl">`, lead paragraph `mt-6 max-w-prose text-lg sm:text-xl`, `CtaGroup` at `mt-8`, small line `mt-4 text-sm text-muted-foreground`; right: `BagLabel` with the section 4 data.
+- `Hero`: `<Section tone="cream">` holding a `<div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">` (the grid is a child of the container, since a `className` on `Section` lands on the `<section>` itself); left: `<h1 className="text-5xl font-semibold tracking-tight leading-[0.95] sm:text-6xl lg:text-7xl">`, lead paragraph `mt-6 max-w-prose text-lg sm:text-xl`, `CtaGroup` at `mt-8`, small line `mt-4 text-sm text-muted-foreground`; right: `BagLabel` with the section 4 data.
 - `Features`: `<Section id="why-us" tone="white">`, `SectionHeading`, then `grid gap-6 md:grid-cols-2` of four `FeatureCard`s from a `const features = [...]` at the top of the file with the section 4 copy; icons `Flame`, `MapPin`, `PenLine`, `Package` from `lucide-react`.
 
 Verify: `npm run validate`; screenshot at 375px and 1280px; the `h1` is the only `h1`; the four cards are `h3` under the section `h2`; "See how we roast" scrolls to the features section with the heading visible below the sticky header.
