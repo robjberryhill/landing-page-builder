@@ -129,7 +129,7 @@ All components are TypeScript function components with an exported props type, n
 | Card (+ CardHeader, CardTitle, CardContent, CardFooter) | `add card` | FeatureCard, PricingTier |
 | Accordion (+ AccordionItem, AccordionTrigger, AccordionContent) | `add accordion` | Faq |
 | Separator | `add separator` | BagLabel rows, SiteFooter |
-| Sheet (+ SheetTrigger, SheetContent, SheetTitle) | `add sheet` | MobileNav |
+| Sheet (+ SheetTrigger, SheetContent, SheetHeader, SheetTitle) | `add sheet` | MobileNav |
 
 ### Site building blocks (`components/site/`)
 
