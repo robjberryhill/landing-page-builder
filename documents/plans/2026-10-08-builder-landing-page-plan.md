@@ -143,8 +143,8 @@ All components are TypeScript function components with an exported props type, n
 | `BagLabel` | `title: string; origin: string; producer: string; process: string; elevation: string; roastLevel: 1 \| 2 \| 3 \| 4 \| 5; notes: string; roastedOn: string` | Hero (this week's bag), ClosingCta (next week's bag) |
 | `CtaGroup` | `primary: { label: string; href: string }; secondary?: { label: string; href: string }; align?: "left" \| "center"` | Hero, ClosingCta |
 | `Logo` | `className?: string` | SiteHeader, SiteFooter |
-| `NavLinks` | `items: { label: string; href: string }[]; orientation?: "row" \| "column"; onNavigate?: () => void` | SiteHeader (row), MobileNav (column), SiteFooter (row) |
-| `MobileNav` | `items: { label: string; href: string }[]` | SiteHeader (below `md`) |
+| `NavLinks` | `items: readonly { label: string; href: string }[]; orientation?: "row" \| "column"; onNavigate?: () => void` | SiteHeader (row), MobileNav (column), SiteFooter (row) |
+| `MobileNav` | `items: readonly { label: string; href: string }[]` | SiteHeader (below `md`) |
 | `SiteHeader` | none (reads `siteConfig`) | `app/layout.tsx` |
 | `SiteFooter` | none (reads `siteConfig`) | `app/layout.tsx` |
 
@@ -469,7 +469,7 @@ Reference pages: `builder.io/c/docs/get-started-fusion`, `builder.io/c/docs/fusi
 
 ## 6. Build phases
 
-One commit per phase, committed straight to `main` and pushed after each. Pull requests per phase are not worth it here: there is no reviewer, and the pull request practice comes from Builder in phase 9. Every commit message ends with the `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` line. Run every command from the repo root.
+The plan first said one commit per phase straight to `main`; from Phase 1 the work ships as pull requests, one per sub-issue group, branched from `main` and merged in order (the Phase 1 as-built note records the switch). Every commit message ends with the `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` line. Run every command from the repo root.
 
 Facts from the Next.js 16.4 docs that shape the phases (doc paths are under `node_modules/next/dist/docs/01-app/`):
 
