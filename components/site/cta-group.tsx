@@ -1,4 +1,5 @@
 import { buttonVariants } from "@/components/ui/button";
+import { hasText } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
 type CtaLink = { label: string; href: string };
@@ -11,7 +12,7 @@ export type CtaGroupProps = {
 
 /** A link needs both a label to read and somewhere to go. */
 function hasLabelAndHref(link: CtaLink | undefined): link is CtaLink {
-  return Boolean(link?.label.trim() && link.href.trim());
+  return hasText(link?.label) && hasText(link?.href);
 }
 
 /**
