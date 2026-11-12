@@ -414,7 +414,7 @@ alwaysApply: false
 
 - One section per file in `components/sections/`, named after the section (`hero.tsx`, `pricing.tsx`). The default export is the section component; `app/page.tsx` renders them in page order.
 - Every section returns `<Section id="..." tone="...">`. The `id` matches the nav `href` in `content/site.ts` when the section is in the nav. Neighbouring sections use different tones; today the order is cream, white, espresso, cream, white, gold.
-- Every section except the hero opens with `<SectionHeading title description />`; the hero has the page's only `h1`.
+- Every section except the hero and the closing call to action opens with `<SectionHeading title description />`; the hero has the page's only `h1`, and the closing band writes its own larger `h2`.
 - Copy lives in the file. Repeated items are a `const` array at the top (`features`, `stats`, `tiers`, `faqs`) mapped over the matching block from `components/site/`.
 - Grids: `grid gap-6 md:grid-cols-2` for two columns, `lg:grid-cols-3` for three, `sm:grid-cols-2 md:grid-cols-4` for stats. Mobile is single column.
 - A new section also gets a nav item in `content/site.ts` when people should be able to jump to it, and `npm run validate` must pass.
@@ -469,7 +469,7 @@ Reference pages: `builder.io/c/docs/get-started-fusion`, `builder.io/c/docs/fusi
 
 ## 6. Build phases
 
-The plan first said one commit per phase straight to `main`; from Phase 1 the work ships as pull requests, one per sub-issue group, branched from `main` and merged in order (the Phase 1 as-built note records the switch). Every commit message ends with the `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` line. Run every command from the repo root.
+The plan first said one commit per phase straight to `main`; from Phase 1 the work ships as pull requests, one per sub-issue group, branched from `main` and merged in order (the Phase 1 as-built note records the switch). Every commit message ends with a `Co-Authored-By` line naming the model that wrote it (`Claude Fable 5.1 <noreply@anthropic.com>` through Phase 3, `Claude Fable 5.2 <noreply@anthropic.com>` from Phase 4). Run every command from the repo root.
 
 Facts from the Next.js 16.4 docs that shape the phases (doc paths are under `node_modules/next/dist/docs/01-app/`):
 
@@ -644,7 +644,7 @@ Commit: `feat: site shell with header, mobile nav, footer, and Section`
 
 Create `components/site/section-heading.tsx`, `cta-group.tsx`, `bag-label.tsx`, `feature-card.tsx`, and `components/sections/hero.tsx`, `features.tsx`. `app/page.tsx` renders `<Hero />` then `<Features />`.
 
-- `SectionHeading`: `<div className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}>` with `<h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">` and an optional `<p className="mt-4 text-lg opacity-80">`. It uses `opacity` rather than `text-muted-foreground` so it reads correctly on every tone.
+- `SectionHeading`: `<div className={cn("max-w-2xl break-words", align === "center" && "mx-auto text-center", className)}>` (`break-words` so one very long word wraps instead of overflowing at 375px) with `<h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">` and an optional `<p className="mt-4 text-lg opacity-80">`. It uses `opacity` rather than `text-muted-foreground` so it reads correctly on every tone. A blank `title` renders nothing, so no section ships an empty `h2`.
 - `CtaGroup`: `<div className={cn("flex flex-col gap-3 sm:flex-row", align === "center" && "justify-center")}>`; primary `<a className={buttonVariants({ size: "lg" })}>`, secondary `buttonVariants({ size: "lg", variant: "outline" })`.
 - `BagLabel`: `<div className="rounded-md border border-espresso bg-card p-6 text-card-foreground">`; top row with `<p className="font-semibold">{title}</p>` and `<Badge variant="outline">Roasted {roastedOn}</Badge>`; a `<dl>` with rows Origin, Producer, Process, Elevation (each `flex justify-between py-2`, divided by `Separator`); a roast row showing five `size-2.5 rounded-full` dots, filled `bg-espresso` for `i < roastLevel` and `bg-line` otherwise, inside a `<div role="img" aria-label={`Roast level ${roastLevel} of 5`}>`; `<p className="mt-4 text-lg">{notes}</p>`.
 - `FeatureCard`: `variant="card"` renders `Card` with `CardHeader` holding the icon in `size-10 rounded-md bg-accent text-accent-foreground` and `CardTitle` wrapping an `<h3>` (the generated `CardTitle` renders a `div` and takes no element override), then `CardContent` with the description; `variant="inline"` renders `<div className="flex gap-3">` with the icon `size-5 mt-1 shrink-0` and a `<div>` holding `<h3 className="font-semibold">` and `<p className="text-muted-foreground">`.
