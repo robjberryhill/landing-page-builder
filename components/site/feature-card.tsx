@@ -15,7 +15,7 @@ export type FeatureCardProps = {
  * `variant="card"` (the default) is a bordered white card with the icon in a
  * tinted tile, used four times in the features section. `variant="inline"` is
  * the icon beside the text with no box, used under the pricing tiers for
- * "Every plan includes". Both are in `components/sections/`. The icon is a
+ * "Every plan includes" (a Phase 5 section; no caller yet). The icon is a
  * `lucide-react` component passed as a prop and is hidden from screen readers,
  * because the title already names the feature. The card overrides the
  * generated `Card`'s ring, radius and padding through `className`, so
@@ -28,17 +28,17 @@ export function FeatureCard({
   description,
   variant = "card",
 }: FeatureCardProps) {
-  const showTitle = hasText(title);
-  const showDescription = hasText(description);
-  if (!showTitle && !showDescription) return null;
+  const hasTitle = hasText(title);
+  const hasDescription = hasText(description);
+  if (!hasTitle && !hasDescription) return null;
 
   if (variant === "inline") {
     return (
       <div className="flex gap-3">
         <Icon aria-hidden className="mt-1 size-5 shrink-0" />
         <div className="min-w-0 wrap-anywhere">
-          {showTitle ? <h3 className="font-semibold">{title}</h3> : null}
-          {showDescription ? <p className="text-muted-foreground">{description}</p> : null}
+          {hasTitle ? <h3 className="font-semibold">{title}</h3> : null}
+          {hasDescription ? <p className="text-muted-foreground">{description}</p> : null}
         </div>
       </div>
     );
@@ -55,13 +55,13 @@ export function FeatureCard({
         <div className="flex size-10 items-center justify-center rounded-md bg-accent">
           <Icon aria-hidden className="size-5 text-accent-foreground" />
         </div>
-        {showTitle ? (
+        {hasTitle ? (
           <CardTitle className="text-xl font-semibold">
             <h3>{title}</h3>
           </CardTitle>
         ) : null}
       </CardHeader>
-      {showDescription ? (
+      {hasDescription ? (
         <CardContent>
           <p className="text-base text-muted-foreground">{description}</p>
         </CardContent>
