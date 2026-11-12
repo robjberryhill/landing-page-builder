@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
           <h1
-            className="text-5xl leading-[0.95] font-semibold tracking-tight sm:text-6xl lg:text-7xl"
+            className="text-5xl font-semibold tracking-tight leading-[0.95] sm:text-6xl lg:text-7xl"
           >
             Coffee that tastes like someone was paying attention.
           </h1>
