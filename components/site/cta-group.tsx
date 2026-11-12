@@ -18,12 +18,14 @@ function isUsable(link: CtaLink | undefined): link is CtaLink {
  * The pair of links styled as buttons that ends the hero and the closing call
  * to action in `components/sections/`: a primary link in the default button
  * style and an optional secondary link in the outline style. Both are `<a>`
- * elements with `buttonVariants`, because they navigate rather than act. The
- * links stack at full width on phones and sit side by side from `sm` up, where
- * `align="center"` centres the pair. There is no `className`; a caller that
- * needs a margin wraps the group. A link with a blank label or a blank href is
- * left out, so the group never renders a button with no name or no target, and
- * with no usable link it renders nothing.
+ * elements with `buttonVariants`, because they navigate rather than act. Keep
+ * the `cn(...)` around each `buttonVariants` call: it merges the classes, and
+ * without it the outline link's border is transparent. The links stack at full
+ * width on phones and sit side by side from `sm` up, where `align="center"`
+ * centres the pair. There is no `className`; a caller that needs a margin
+ * wraps the group. A link with a blank label or a blank href is left out, so
+ * the group never renders a button with no name or no target, and with no
+ * usable link it renders nothing.
  */
 export function CtaGroup({ primary, secondary, align = "left" }: CtaGroupProps) {
   const showPrimary = isUsable(primary);

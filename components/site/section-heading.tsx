@@ -27,12 +27,18 @@ export function SectionHeading({
   align = "left",
   className,
 }: SectionHeadingProps) {
-  const hasTitle = title.trim() !== "";
+  const hasTitle = Boolean(title.trim());
   const hasDescription = Boolean(description?.trim());
   if (!hasTitle && !hasDescription) return null;
 
   return (
-    <div className={cn("max-w-2xl break-words", align === "center" && "mx-auto text-center", className)}>
+    <div
+      className={cn(
+        "max-w-2xl break-words",
+        align === "center" && "mx-auto text-center",
+        className,
+      )}
+    >
       {hasTitle ? (
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
       ) : null}
