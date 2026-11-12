@@ -10,7 +10,7 @@ export type CtaGroupProps = {
 };
 
 /** A link needs both a label to read and somewhere to go. */
-function isUsable(link: CtaLink | undefined): link is CtaLink {
+function hasLabelAndHref(link: CtaLink | undefined): link is CtaLink {
   return Boolean(link?.label.trim() && link.href.trim());
 }
 
@@ -28,8 +28,8 @@ function isUsable(link: CtaLink | undefined): link is CtaLink {
  * usable link it renders nothing.
  */
 export function CtaGroup({ primary, secondary, align = "left" }: CtaGroupProps) {
-  const showPrimary = isUsable(primary);
-  const showSecondary = isUsable(secondary);
+  const showPrimary = hasLabelAndHref(primary);
+  const showSecondary = hasLabelAndHref(secondary);
   if (!showPrimary && !showSecondary) return null;
 
   return (
