@@ -20,11 +20,10 @@ export type SectionProps = {
  * text colour from the `tones` map, the vertical padding, and a centred
  * container that carries the side padding, so sections never set their own.
  * Used by every file in `components/sections/` (hero, features, stats,
- * pricing, FAQ, closing call to action) and by the placeholder page until
- * Phase 4. `className` is merged onto the `<section>`; a grid or a narrower
- * column goes on a child element inside the container. To change the vertical
- * padding, pass both breakpoints (`py-8 sm:py-12`): `cn` replaces `py-16` and
- * keeps `sm:py-24` otherwise.
+ * pricing, FAQ, closing call to action). `className` is merged onto the
+ * `<section>`; a grid or a narrower column goes on a child element inside the
+ * container. To change the vertical padding, pass both breakpoints
+ * (`py-8 sm:py-12`): `cn` replaces `py-16` and keeps `sm:py-24` otherwise.
  */
 export function Section({ id, tone = "cream", className, children }: SectionProps) {
   return (
