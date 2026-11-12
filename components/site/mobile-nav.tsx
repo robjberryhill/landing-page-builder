@@ -6,6 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { NavLinks, type NavItem } from "@/components/site/nav-links";
 import { siteConfig } from "@/content/site";
+import { cn } from "@/lib/utils";
 
 export type MobileNavProps = { items: readonly NavItem[] };
 
@@ -34,7 +35,11 @@ export function MobileNav({ items }: MobileNavProps) {
         </SheetHeader>
         <div className="flex flex-col gap-6 px-4">
           <NavLinks items={items} orientation="column" onNavigate={close} />
-          <a href={siteConfig.cta.href} className={buttonVariants({ size: "lg" })} onClick={close}>
+          <a
+            href={siteConfig.cta.href}
+            className={cn(buttonVariants({ size: "lg" }))}
+            onClick={close}
+          >
             {siteConfig.cta.label}
           </a>
         </div>
