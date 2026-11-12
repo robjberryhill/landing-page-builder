@@ -103,6 +103,7 @@ landing-page-builder/
 │   └── plans/
 │       └── 2026-10-08-builder-landing-page-plan.md
 ├── lib/
+│   ├── text.ts                  hasText(), the blank-string check the site blocks share
 │   └── utils.ts                 cn() from shadcn init
 ├── public/                      absent after phase 1: the scaffold SVGs are deleted and git keeps no empty directory; Next.js does not need it
 ├── components.json              shadcn config

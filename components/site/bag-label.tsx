@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { hasText } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
 export type BagLabelProps = {
@@ -12,7 +13,7 @@ export type BagLabelProps = {
   roastedOn: string;
 };
 
-const ROAST_DOTS = [1, 2, 3, 4, 5] as const;
+const roastDots = [1, 2, 3, 4, 5] as const;
 
 /**
  * A coffee bag label drawn with type, rules and roast dots: the bag's name and
@@ -41,10 +42,10 @@ export function BagLabel({
     { term: "Producer", detail: producer },
     { term: "Process", detail: process },
     { term: "Elevation", detail: elevation },
-  ].filter((row) => Boolean(row.detail.trim()));
-  const hasTitle = Boolean(title.trim());
-  const hasRoastedOn = Boolean(roastedOn.trim());
-  const hasNotes = Boolean(notes.trim());
+  ].filter((row) => hasText(row.detail));
+  const hasTitle = hasText(title);
+  const hasRoastedOn = hasText(roastedOn);
+  const hasNotes = hasText(notes);
 
   return (
     <div className="rounded-md border border-espresso bg-card p-6 text-card-foreground">
@@ -65,7 +66,7 @@ export function BagLabel({
           <dt className="text-muted-foreground">Roast</dt>
           <dd>
             <div role="img" aria-label={`Roast level ${roastLevel} of 5`} className="flex gap-1.5">
-              {ROAST_DOTS.map((dot) => (
+              {roastDots.map((dot) => (
                 <span
                   key={dot}
                   className={cn(

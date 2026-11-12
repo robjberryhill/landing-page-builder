@@ -1,3 +1,4 @@
+import { hasText } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
 export type SectionHeadingProps = {
@@ -27,8 +28,8 @@ export function SectionHeading({
   align = "left",
   className,
 }: SectionHeadingProps) {
-  const hasTitle = Boolean(title.trim());
-  const hasDescription = Boolean(description?.trim());
+  const hasTitle = hasText(title);
+  const hasDescription = hasText(description);
   if (!hasTitle && !hasDescription) return null;
 
   return (
