@@ -35,7 +35,7 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "max-w-2xl break-words",
+        "max-w-2xl wrap-anywhere",
         align === "center" && "mx-auto text-center",
         className,
       )}

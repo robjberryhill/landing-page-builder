@@ -9,12 +9,15 @@ export type LogoProps = { className?: string };
  * a handle) beside the wordmark, both drawn in `currentColor`, so the header
  * shows it in espresso and the footer, which passes `className="text-cream"`,
  * in cream. Used by `SiteHeader` and `SiteFooter`. The mark is decorative;
- * the link's accessible name is the site name followed by "home".
+ * the link's accessible name is the site name followed by "home". The target
+ * is `/#top`, not `/`: on this one-page site a link to the address the visitor
+ * is already on does not scroll, and `#top` is the fragment Next and browsers
+ * both treat as the top of the page, so no element needs that id.
  */
 export function Logo({ className }: LogoProps) {
   return (
     <Link
-      href="/"
+      href="/#top"
       aria-label={`${siteConfig.name}, home`}
       className={cn("inline-flex items-center gap-2 font-semibold tracking-tight", className)}
     >
