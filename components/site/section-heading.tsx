@@ -17,8 +17,9 @@ export type SectionHeadingProps = {
  * heading is always an `h2`, because section titles sit directly under the
  * hero's `h1`. `align="center"` centres the block and its text; `className`
  * is merged last onto the wrapper, for a margin or a different max width. A
- * blank `title` renders nothing, description included, so a section never
- * ships an empty heading; a blank `description` leaves out the paragraph.
+ * blank or whitespace-only `title` leaves out the `h2`, so a section never
+ * ships an empty heading, and a blank `description` leaves out the paragraph;
+ * with both blank the block renders nothing.
  */
 export function SectionHeading({
   title,
@@ -26,12 +27,18 @@ export function SectionHeading({
   align = "left",
   className,
 }: SectionHeadingProps) {
-  if (!title.trim()) return null;
+  const hasTitle = title.trim() !== "";
+  const hasDescription = Boolean(description?.trim());
+  if (!hasTitle && !hasDescription) return null;
 
   return (
     <div className={cn("max-w-2xl break-words", align === "center" && "mx-auto text-center", className)}>
-      <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
-      {description ? <p className="mt-4 text-lg opacity-80">{description}</p> : null}
+      {hasTitle ? (
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
+      ) : null}
+      {hasDescription ? (
+        <p className={cn("text-lg opacity-80", hasTitle && "mt-4")}>{description}</p>
+      ) : null}
     </div>
   );
 }
