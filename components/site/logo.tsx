@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -9,14 +8,19 @@ export type LogoProps = { className?: string };
  * a handle) beside the wordmark, both drawn in `currentColor`, so the header
  * shows it in espresso and the footer, which passes `className="text-cream"`,
  * in cream. Used by `SiteHeader` and `SiteFooter`. The mark is decorative;
- * the link's accessible name is the site name followed by "home". The target
- * is `/#top`, not `/`: on this one-page site a link to the address the visitor
- * is already on does not scroll, and `#top` is the fragment Next and browsers
- * both treat as the top of the page, so no element needs that id.
+ * the link's accessible name is the site name followed by "home". It is a
+ * plain `<a href="/#top">` and not a `Link`: a `Link` to the address the
+ * visitor is already on does not scroll, so `Link` to `/` did nothing on this
+ * one-page site and `Link` to `/#top` worked once and then stopped. A plain
+ * anchor scrolls to the top on every click, and from any other address, such
+ * as the 404 page, it loads the home page. Browsers treat `#top` as the top
+ * of the page, so no element needs that id.
  */
 export function Logo({ className }: LogoProps) {
   return (
-    <Link
+    // A plain anchor on purpose; see the JSDoc. The rule ignores the fragment.
+    // eslint-disable-next-line @next/next/no-html-link-for-pages
+    <a
       href="/#top"
       aria-label={`${siteConfig.name}, home`}
       className={cn("inline-flex items-center gap-2 font-semibold tracking-tight", className)}
@@ -35,6 +39,6 @@ export function Logo({ className }: LogoProps) {
         <path d="M19 9a3 3 0 0 1 0 6" />
       </svg>
       <span>{siteConfig.name}</span>
-    </Link>
+    </a>
   );
 }
