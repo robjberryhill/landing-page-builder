@@ -211,7 +211,7 @@ One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so
 - No scroll animations. Only the accordion and sheet animate, and both are user-triggered.
 - Numbered markers nowhere (nothing on the page is a sequence).
 - No all-caps labels and no eyebrow tags. Section headings carry the information.
-- Mobile first: single column below `md`, grids at `md` and up, header collapses to the sheet below `md`.
+- Mobile first: every grid is a single column on phones (below `sm`, 640px), and each grid then widens at the breakpoint its content needs: features to two columns at `md`, stats to two at `sm` and four at `lg`, the hero, the pricing tiers and the closing band at `lg`. The header collapses to the sheet below `md`.
 
 ### Copy, section by section
 
