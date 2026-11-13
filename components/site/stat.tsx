@@ -1,4 +1,5 @@
 import { hasText } from "@/lib/text";
+import { cn } from "@/lib/utils";
 
 export type StatProps = {
   value: string;
@@ -21,11 +22,11 @@ export function Stat({ value, label }: StatProps) {
   if (!hasValue && !hasLabel) return null;
 
   return (
-    <div className="min-w-0 wrap-anywhere">
+    <div className="wrap-anywhere">
       {hasValue ? (
         <p className="text-4xl font-semibold tracking-tight sm:text-5xl">{value}</p>
       ) : null}
-      {hasLabel ? <p className={hasValue ? "mt-2 opacity-80" : "opacity-80"}>{label}</p> : null}
+      {hasLabel ? <p className={cn("opacity-80", hasValue && "mt-2")}>{label}</p> : null}
     </div>
   );
 }
