@@ -251,7 +251,7 @@ Voice: real, authentic, comedic, poetic. Sentence case everywhere. Specific noun
   3. PenLine. `Tasting notes written by a person`. `No algorithm says "hints of stone fruit." A human named Dana does, after her third cup.`
   4. Package. `Shipped flat, never flat-tasting`. `Four dollars to ship anywhere in the country. Bags are nitrogen flushed and one-way valved, so day nine tastes like day two.`
 
-**Stats (`stats.tsx`, id `numbers`, tone espresso, 4 columns at `md`)**
+**Stats (`stats.tsx`, id `numbers`, tone espresso, 2 columns at `sm`, 4 at `lg`)**
 - SectionHeading title: `A few honest numbers.` description: `Rounded where rounding was kind to us.`
 - Stats:
   1. value `48 hours`, label `roaster to porch, on average`
@@ -417,7 +417,7 @@ alwaysApply: false
 - Every section returns `<Section tone="...">`, with an `id` when something links to it. The `id` matches the nav `href` in `content/site.ts` when the section is in the nav; the hero and the closing call to action have none. Neighbouring sections use different tones; today the order is cream, white, espresso, cream, white, gold.
 - Every section except the hero and the closing call to action opens with `<SectionHeading title description />`; the hero has the page's only `h1`, and the closing band writes its own larger `h2`.
 - Copy lives in the file. Repeated items are a `const` array at the top (`features`, `stats`, `tiers`, `faqs`) mapped over the matching block from `components/site/`.
-- Grids: `grid gap-6 md:grid-cols-2` for two columns, `lg:grid-cols-3` for three, `sm:grid-cols-2 md:grid-cols-4` for stats. Mobile is single column.
+- Grids: `grid gap-6 md:grid-cols-2` for two columns, `lg:grid-cols-3` for three, `sm:grid-cols-2 lg:grid-cols-4` for stats. Mobile is single column.
 - A new section also gets a nav item in `content/site.ts` when people should be able to jump to it, and `npm run validate` must pass.
 - Numbered markers appear only for a real sequence, such as steps in time. Everything else is unnumbered.
 ```
@@ -662,7 +662,7 @@ Create `components/site/stat.tsx`, `pricing-tier.tsx`, and `components/sections/
 
 - `Stat`: `<div className="wrap-anywhere"><p className="text-4xl font-semibold tracking-tight sm:text-5xl">{value}</p><p className="mt-2 opacity-80">{label}</p></div>`. No colour of its own: it takes the band's. A blank `value` or `label` leaves out its line (the label then has no `mt-2`), and with both blank the block renders nothing. `wrap-anywhere` breaks a word too long for the column.
 - `PricingTier`: `Card` with `cn("rounded-lg border border-line ring-0", "flex h-full flex-col", highlighted && "border-gold")` (the same three overrides `FeatureCard` needs; without `border` the gold colour has no width to show on); if `badge`, `<Badge className="bg-butter text-espresso">` at the top of the header; `CardTitle` wrapping an `<h3>` with `name`; price row `<p><span className="text-4xl font-semibold tracking-tight">{price}</span>{cadence && <span className="ml-1 text-muted-foreground">{cadence}</span>}</p>`; description `text-muted-foreground`; `CardContent` with `<ul className="space-y-2">` and a lucide `Check` icon `size-4` before each feature; `CardFooter` with the CTA link, `cn(buttonVariants({ variant: highlighted ? "default" : "outline" }), "w-full")`.
-- `Stats`: `<Section id="numbers" tone="espresso">`, `SectionHeading`, then `mt-12 grid gap-10 sm:grid-cols-2 md:grid-cols-4` of four `Stat`s from a `const stats` array.
+- `Stats`: `<Section id="numbers" tone="espresso">`, `SectionHeading`, then `mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4` of four `Stat`s from a `const stats` array, keyed by `label`. Four columns start at `lg`, not `md`: measured in Phase 5 (#44), "48 hours" is 189px wide at the 48px value size and a four-column cell at 768px is 146px, so the value broke onto two lines; at 1024px the cell is 210px.
 - `Pricing`: `<Section id="pricing" tone="cream">`, `SectionHeading` centered, `mt-12 grid gap-6 lg:grid-cols-3` of three `PricingTier`s from `const tiers`, then `<h3 className="mt-16 text-xl font-semibold">Every plan includes</h3>` and `mt-6 grid gap-6 sm:grid-cols-3` of three inline `FeatureCard`s (icons `CalendarCheck`, `RefreshCw`, `Mail`).
 
 Verify: `npm run validate`; the stats band is espresso with cream text; the middle tier has the gold border and butter badge; at 375px the tiers stack; tier links show espresso focus rings (they sit on cream; cream rings appear only on the espresso and ink bands, and the only links there are in the footer).
