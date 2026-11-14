@@ -202,7 +202,7 @@ Contrast ratios computed during planning: espresso on cream 15.4, espresso on wh
 
 ### Type
 
-One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
+One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
 
 ### Layout principles
 
@@ -367,7 +367,7 @@ Gold and ash fail contrast as text on cream, so text is espresso, cream, or grap
 
 ## Type
 
-One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
+One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
 
 ## Voice
 
@@ -417,7 +417,7 @@ alwaysApply: false
 - Every section returns `<Section tone="...">`, with an `id` when something links to it. The `id` matches the nav `href` in `content/site.ts` when the section is in the nav; the hero and the closing call to action have none. Neighbouring sections use different tones; today the order is cream, white, espresso, cream, white, gold.
 - Every section except the hero and the closing call to action opens with `<SectionHeading title description />`; the hero has the page's only `h1`, and the closing band writes its own larger `h2`.
 - Copy lives in the file. Repeated items are a `const` array at the top (`features`, `stats`, `tiers`, `faqs`) mapped over the matching block from `components/site/`.
-- Grids: `grid gap-6 md:grid-cols-2` for two columns, `lg:grid-cols-3` for three, `sm:grid-cols-2 lg:grid-cols-4` for stats. Mobile is single column.
+- Grids: `grid gap-6 md:grid-cols-2` for two columns, `grid gap-6 lg:grid-cols-3` for three, `grid gap-10 sm:grid-cols-2 lg:grid-cols-4` for stats (the wider gap stands in for the card borders the stats do not have). Mobile is single column.
 - A new section also gets a nav item in `content/site.ts` when people should be able to jump to it, and `npm run validate` must pass.
 - Numbered markers appear only for a real sequence, such as steps in time. Everything else is unnumbered.
 ```

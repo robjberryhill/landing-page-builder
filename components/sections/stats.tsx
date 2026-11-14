@@ -11,10 +11,12 @@ const stats = [
 
 /**
  * The "Numbers" section: a heading and four stats on the espresso band, the
- * page's first dark section. Rendered third in `app/page.tsx`, after the
- * features section, and the target of the "Numbers" nav link (`#numbers` in
- * `content/site.ts`). The copy lives in the `stats` array above; add a stat by
- * adding an object to it.
+ * page's first dark section. The stats sit in one column on phones, two from
+ * `sm` up and four from `lg` up; four start at `lg` because "48 hours" does
+ * not fit a four-column cell below it. Rendered third in `app/page.tsx`,
+ * after the features section, and the target of the "Numbers" nav link
+ * (`#numbers` in `content/site.ts`). The copy lives in the `stats` array
+ * above; add a stat by adding an object to it.
  */
 export default function Stats() {
   return (
