@@ -202,7 +202,7 @@ Contrast ratios computed during planning: espresso on cream 15.4, espresso on wh
 
 ### Type
 
-One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
+One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
 
 ### Layout principles
 
@@ -211,7 +211,7 @@ One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so
 - No scroll animations. Only the accordion and sheet animate, and both are user-triggered.
 - Numbered markers nowhere (nothing on the page is a sequence).
 - No all-caps labels and no eyebrow tags. Section headings carry the information.
-- Mobile first: single column below `md`, grids at `md` and up, header collapses to the sheet below `md`.
+- Mobile first: every grid is a single column on phones (below `sm`, 640px) and widens at the breakpoint its content needs; each section's bullet in section 6 gives its own. The header collapses to the sheet below `md`.
 
 ### Copy, section by section
 
@@ -251,7 +251,7 @@ Voice: real, authentic, comedic, poetic. Sentence case everywhere. Specific noun
   3. PenLine. `Tasting notes written by a person`. `No algorithm says "hints of stone fruit." A human named Dana does, after her third cup.`
   4. Package. `Shipped flat, never flat-tasting`. `Four dollars to ship anywhere in the country. Bags are nitrogen flushed and one-way valved, so day nine tastes like day two.`
 
-**Stats (`stats.tsx`, id `numbers`, tone espresso, 4 columns at `md`)**
+**Stats (`stats.tsx`, id `numbers`, tone espresso, 2 columns at `sm`, 4 at `lg`)**
 - SectionHeading title: `A few honest numbers.` description: `Rounded where rounding was kind to us.`
 - Stats:
   1. value `48 hours`, label `roaster to porch, on average`
@@ -367,12 +367,12 @@ Gold and ash fail contrast as text on cream, so text is espresso, cream, or grap
 
 ## Type
 
-One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
+One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
 
 ## Voice
 
 - Sentence case for every heading, label, and button.
-- Specific nouns and numbers beat adjectives: "six farms we can name", not "carefully sourced". Numbers over nine are digits; prices look like `$18`; cadence is "per month".
+- Specific nouns and numbers beat adjectives: "six farms we can name", not "carefully sourced". Numbers over nine are digits, and a stat value is always digits; prices look like `$18`; cadence is "per month".
 - The joke lands at the end of the sentence, after the fact: "Nothing sits on a shelf getting philosophical."
 - Buttons say what happens: "Order beans", "Start the subscription", "Read the FAQ".
 - Periods end sentences. Exclamation marks do not appear on this site.
@@ -392,7 +392,7 @@ alwaysApply: false
 # Components
 
 - `components/ui/` is generated by shadcn. Compose it; leave the files as generated.
-- A new file in `components/site/` is justified only when two sections need the same block. Otherwise the markup stays in the section file.
+- A new file in `components/site/` is justified when two sections need the same block, or one section maps an array over it (`Stat`, `PricingTier`). Otherwise the markup stays in the section file.
 - Each component is a plain function with an exported `XProps` type, a one-paragraph JSDoc stating what it is for and where it is used, and no `forwardRef`.
 - Class names are joined with `cn` from `@/lib/utils`; a `className` prop, when present, is merged last.
 - Variants live in one object near the top of the file (`tones` in `section.tsx`, the `variant` branches in `feature-card.tsx`) so a new variant is a one-line addition.
@@ -417,7 +417,7 @@ alwaysApply: false
 - Every section returns `<Section tone="...">`, with an `id` when something links to it. The `id` matches the nav `href` in `content/site.ts` when the section is in the nav; the hero and the closing call to action have none. Neighbouring sections use different tones; today the order is cream, white, espresso, cream, white, gold.
 - Every section except the hero and the closing call to action opens with `<SectionHeading title description />`; the hero has the page's only `h1`, and the closing band writes its own larger `h2`.
 - Copy lives in the file. Repeated items are a `const` array at the top (`features`, `stats`, `tiers`, `faqs`) mapped over the matching block from `components/site/`.
-- Grids: `grid gap-6 md:grid-cols-2` for two columns, `lg:grid-cols-3` for three, `sm:grid-cols-2 md:grid-cols-4` for stats. Mobile is single column.
+- Grids: `grid gap-6 md:grid-cols-2` for two columns, `grid gap-6 lg:grid-cols-3` for three, `grid gap-10 sm:grid-cols-2 lg:grid-cols-4` for stats (the wider gap stands in for the card borders the stats do not have). Mobile is single column.
 - A new section also gets a nav item in `content/site.ts` when people should be able to jump to it, and `npm run validate` must pass.
 - Numbered markers appear only for a real sequence, such as steps in time. Everything else is unnumbered.
 ```
@@ -660,9 +660,9 @@ Commit: `feat: hero and features sections`
 
 Create `components/site/stat.tsx`, `pricing-tier.tsx`, and `components/sections/stats.tsx`, `pricing.tsx`. `app/page.tsx` renders Hero, Features, Stats, Pricing.
 
-- `Stat`: `<div><p className="text-4xl font-semibold tracking-tight sm:text-5xl">{value}</p><p className="mt-2 opacity-80">{label}</p></div>`.
+- `Stat`: `<div className="wrap-anywhere"><p className="text-4xl font-semibold tracking-tight sm:text-5xl">{value}</p><p className="mt-2 opacity-80">{label}</p></div>`. No colour of its own: it takes the band's. A blank `value` or `label` leaves out its line (the label then has no `mt-2`), and with both blank the block renders nothing. `wrap-anywhere` breaks a word too long for the column.
 - `PricingTier`: `Card` with `cn("rounded-lg border border-line ring-0", "flex h-full flex-col", highlighted && "border-gold")` (the same three overrides `FeatureCard` needs; without `border` the gold colour has no width to show on); if `badge`, `<Badge className="bg-butter text-espresso">` at the top of the header; `CardTitle` wrapping an `<h3>` with `name`; price row `<p><span className="text-4xl font-semibold tracking-tight">{price}</span>{cadence && <span className="ml-1 text-muted-foreground">{cadence}</span>}</p>`; description `text-muted-foreground`; `CardContent` with `<ul className="space-y-2">` and a lucide `Check` icon `size-4` before each feature; `CardFooter` with the CTA link, `cn(buttonVariants({ variant: highlighted ? "default" : "outline" }), "w-full")`.
-- `Stats`: `<Section id="numbers" tone="espresso">`, `SectionHeading`, then `mt-12 grid gap-10 sm:grid-cols-2 md:grid-cols-4` of four `Stat`s from a `const stats` array.
+- `Stats`: `<Section id="numbers" tone="espresso">`, `SectionHeading`, then `mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4` of four `Stat`s from a `const stats` array, keyed by `label`. Four columns start at `lg`, not `md`: measured in Phase 5 (#44), "48 hours" is 189px wide at the 48px value size and a four-column cell at 768px is 146px, so the value broke onto two lines; at 1024px the cell is 210px.
 - `Pricing`: `<Section id="pricing" tone="cream">`, `SectionHeading` centered, `mt-12 grid gap-6 lg:grid-cols-3` of three `PricingTier`s from `const tiers`, then `<h3 className="mt-16 text-xl font-semibold">Every plan includes</h3>` and `mt-6 grid gap-6 sm:grid-cols-3` of three inline `FeatureCard`s (icons `CalendarCheck`, `RefreshCw`, `Mail`).
 
 Verify: `npm run validate`; the stats band is espresso with cream text; the middle tier has the gold border and butter badge; at 375px the tiers stack; tier links show espresso focus rings (they sit on cream; cream rings appear only on the espresso and ink bands, and the only links there are in the footer).
