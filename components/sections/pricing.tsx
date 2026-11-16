@@ -1,5 +1,5 @@
 import { CalendarCheck, Mail, RefreshCw } from "lucide-react";
-import { FeatureCard } from "@/components/site/feature-card";
+import { FeatureCard, type FeatureCardProps } from "@/components/site/feature-card";
 import { PricingTier, type PricingTierProps } from "@/components/site/pricing-tier";
 import { Section } from "@/components/site/section";
 import { SectionHeading } from "@/components/site/section-heading";
@@ -45,7 +45,7 @@ const tiers: PricingTierProps[] = [
   },
 ];
 
-const included = [
+const included: Pick<FeatureCardProps, "icon" | "title" | "description">[] = [
   {
     icon: CalendarCheck,
     title: "Roast date on every bag",

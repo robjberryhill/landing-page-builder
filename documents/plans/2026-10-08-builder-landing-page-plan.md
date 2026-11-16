@@ -202,7 +202,7 @@ Contrast ratios computed during planning: espresso on cream 15.4, espresso on wh
 
 ### Type
 
-One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
+One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; item titles under an `h3` (`h4`) at body size, `font-semibold`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
 
 ### Layout principles
 
@@ -367,7 +367,7 @@ Gold and ash fail contrast as text on cream, so text is espresso, cream, or grap
 
 ## Type
 
-One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
+One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl`; h4 at body size, `font-semibold`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
 
 ## Voice
 
