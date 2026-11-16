@@ -208,7 +208,7 @@ One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so
 
 - One memorable element, the `BagLabel`: a coffee bag label built from rules, type, and roast dots. It carries the "real" tone without a photo. Everything else stays plain.
 - Cards get a 1px `border-line` border, no shadow, 6px radius. The highlighted pricing tier gets a `border-gold` border, the butter badge and a solid button where the other tiers have an outline one, nothing else.
-- No scroll animations. Only the accordion and sheet animate, and both are user-triggered.
+- No scroll animations. Only the accordion and sheet animate, and both are user-triggered. The accordion opens and closes in one step under reduced motion.
 - Numbered markers nowhere (nothing on the page is a sequence).
 - No all-caps labels and no eyebrow tags. Section headings carry the information.
 - Mobile first: every grid is a single column on phones (below `sm`, 640px) and widens at the breakpoint its content needs; each section's bullet in section 6 gives its own. The header collapses to the sheet below `md`.
@@ -673,7 +673,7 @@ Commit: `feat: stats band and pricing`
 
 Create `components/sections/faq.tsx` and `closing-cta.tsx`. `app/page.tsx` renders all six sections in order.
 
-- `Faq`: `<Section id="faq" tone="white">`, `SectionHeading`, then `<div className="mx-auto mt-12 max-w-3xl">` with the generated `Accordion` opened on the first item by default. Base UI's accordion API differs from Radix (no `type="single"`); use the `defaultValue` and item `value` props as the generated `components/ui/accordion.tsx` defines them, and give items the values `roast`, `grind`, `fresh`, `decaf`, `cancel`, `ship`.
+- `Faq`: `<Section id="faq" tone="white">`, `SectionHeading` with `align="center"`, then `<div className="mx-auto mt-12 max-w-3xl">` with the generated `Accordion` opened on the first item by default: `<Accordion defaultValue={["roast"]} hiddenUntilFound>`. Base UI's accordion API differs from Radix (no `type="single"`): `defaultValue` is an array of item values, one item is open at a time unless `multiple` is set, and `hiddenUntilFound` keeps closed answers in the page so the browser's find-in-page reaches them. Items come from a `const faqs` array of `{ value, question, answer }` with the values `roast`, `grind`, `fresh`, `decaf`, `cancel`, `ship`; an item with a blank question or answer is left out. `AccordionTrigger` takes `py-4 text-base` and `AccordionContent` takes `pb-4 text-base` (the generated parts are 14px with 10px padding; the page's body text is 16px). The wrapper also carries `motion-reduce:**:data-[slot=accordion-content]:animate-none!`, because the generated panel takes no class of its own and its animation otherwise ignores reduced motion. `faq.tsx` has no `"use client"`.
 - `ClosingCta`: `<Section tone="gold">` with the same two-column grid as the hero; left: `<h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">`, lead paragraph, `CtaGroup`; right: `BagLabel` with the "Next week's bag" data.
 
 Verify: `npm run validate`; the first FAQ item is open on load, Enter and Space toggle items from the keyboard, only one item is open at a time; the gold band has espresso text and both buttons are readable; the full page screenshot at 375px shows no horizontal scroll.
