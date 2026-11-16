@@ -1,5 +1,6 @@
 import Features from "@/components/sections/features";
 import Hero from "@/components/sections/hero";
+import Pricing from "@/components/sections/pricing";
 import Stats from "@/components/sections/stats";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <Features />
       <Stats />
+      <Pricing />
     </>
   );
 }
