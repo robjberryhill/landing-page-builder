@@ -8,16 +8,20 @@ export type FeatureCardProps = {
   title: string;
   description: string;
   variant?: "card" | "inline";
+  headingLevel?: "h3" | "h4";
 };
 
 /**
- * One feature: an icon, an `h3` title and a sentence or two of description.
+ * One feature: an icon, a heading and a sentence or two of description.
  * `variant="card"` (the default) is a bordered white card with the icon in a
  * tinted tile, used four times in the features section. `variant="inline"` is
  * the icon beside the text with no box, used three times under the pricing
- * tiers for "Every plan includes". The icon is a `lucide-react` component passed as a prop and is hidden from screen readers,
- * because the title already names the feature. The card overrides the
- * generated `Card`'s ring, radius and padding through `className`, so
+ * tiers for "Every plan includes". The title is an `h3` unless `headingLevel`
+ * says `h4`, which is for items that sit under an `h3` of their own, as the
+ * pricing items do; the level changes the element and not the look. The icon
+ * is a `lucide-react` component passed as a prop and is hidden from screen
+ * readers, because the title already names the feature. The card overrides
+ * the generated `Card`'s ring, radius and padding through `className`, so
  * `components/ui/card.tsx` stays as generated. A blank title or description is
  * left out, and with both blank the block renders nothing.
  */
@@ -26,6 +30,7 @@ export function FeatureCard({
   title,
   description,
   variant = "card",
+  headingLevel: Heading = "h3",
 }: FeatureCardProps) {
   const hasTitle = hasText(title);
   const hasDescription = hasText(description);
@@ -36,7 +41,7 @@ export function FeatureCard({
       <div className="flex gap-3">
         <Icon aria-hidden className="mt-1 size-5 shrink-0" />
         <div className="min-w-0 wrap-anywhere">
-          {hasTitle ? <h3 className="font-semibold">{title}</h3> : null}
+          {hasTitle ? <Heading className="font-semibold">{title}</Heading> : null}
           {hasDescription ? <p className="text-muted-foreground">{description}</p> : null}
         </div>
       </div>
@@ -56,7 +61,7 @@ export function FeatureCard({
         </div>
         {hasTitle ? (
           <CardTitle className="text-xl font-semibold">
-            <h3>{title}</h3>
+            <Heading>{title}</Heading>
           </CardTitle>
         ) : null}
       </CardHeader>

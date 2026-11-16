@@ -66,8 +66,9 @@ const included = [
 /**
  * The "Pricing" section: a centred heading, three tiers and, under them, the
  * three things every plan includes. The tiers stack below `lg` and sit three
- * across from `lg` up; the included items stack below `sm` and sit three
- * across from `sm` up. Rendered fourth in `app/page.tsx`, after the stats
+ * across from `lg` up; the included items stack below `md` and sit three
+ * across from `md` up, each titled with an `h4` under the "Every plan
+ * includes" `h3`. Rendered fourth in `app/page.tsx`, after the stats
  * band. Its `id` is the target of the "Pricing" nav link and of every "Order
  * beans" link (`siteConfig.cta` in `content/site.ts`). The tier links go to
  * `#faq`, because there is no shop and the FAQ explains ordering. To change a
@@ -88,9 +89,9 @@ export default function Pricing() {
         ))}
       </div>
       <h3 className="mt-16 text-xl font-semibold">Every plan includes</h3>
-      <div className="mt-6 grid gap-6 sm:grid-cols-3">
+      <div className="mt-6 grid gap-6 md:grid-cols-3">
         {included.map((item) => (
-          <FeatureCard key={item.title} variant="inline" {...item} />
+          <FeatureCard key={item.title} variant="inline" headingLevel="h4" {...item} />
         ))}
       </div>
     </Section>
