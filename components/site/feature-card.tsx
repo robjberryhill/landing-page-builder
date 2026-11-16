@@ -14,9 +14,8 @@ export type FeatureCardProps = {
  * One feature: an icon, an `h3` title and a sentence or two of description.
  * `variant="card"` (the default) is a bordered white card with the icon in a
  * tinted tile, used four times in the features section. `variant="inline"` is
- * the icon beside the text with no box, used under the pricing tiers for
- * "Every plan includes" (a Phase 5 section; no caller yet). The icon is a
- * `lucide-react` component passed as a prop and is hidden from screen readers,
+ * the icon beside the text with no box, used three times under the pricing
+ * tiers for "Every plan includes". The icon is a `lucide-react` component passed as a prop and is hidden from screen readers,
  * because the title already names the feature. The card overrides the
  * generated `Card`'s ring, radius and padding through `className`, so
  * `components/ui/card.tsx` stays as generated. A blank title or description is
