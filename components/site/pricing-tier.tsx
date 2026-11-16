@@ -28,10 +28,13 @@ export type PricingTierProps = {
  * padding and the generated footer's tint and rule through `className`, so
  * `components/ui/card.tsx` stays as generated. The footer is pushed to the
  * bottom, so the buttons of tiers in one row line up whatever the length of
- * their lists. A blank string leaves out its line, a blank feature leaves out
- * its list item, the link needs both a label and an `href`, and with nothing
- * to show the block renders nothing. The check icons are hidden from screen
- * readers; the list itself announces the items.
+ * their lists. A tier with no badge keeps a badge-high gap above its name
+ * from `lg` up, where the tiers sit side by side, so the three names line up
+ * too; below `lg` the tiers stack and the gap is not rendered. A blank string
+ * leaves out its line, a blank feature leaves out its list item, the link
+ * needs both a label and an `href`, and with nothing to show the block
+ * renders nothing. The check icons are hidden from screen readers; the list
+ * itself announces the items.
  */
 export function PricingTier({
   name,
@@ -63,7 +66,11 @@ export function PricingTier({
     >
       {hasHeader ? (
         <CardHeader className="gap-3">
-          {hasBadge ? <Badge className="bg-butter text-espresso">{badge}</Badge> : null}
+          {hasBadge ? (
+            <Badge className="bg-butter text-espresso">{badge}</Badge>
+          ) : (
+            <div aria-hidden className="hidden h-5 lg:block" />
+          )}
           {hasName ? (
             <CardTitle className="text-xl font-semibold">
               <h3>{name}</h3>
@@ -100,7 +107,7 @@ export function PricingTier({
           <a
             href={ctaHref}
             className={cn(
-              buttonVariants({ variant: highlighted ? "default" : "outline" }),
+              buttonVariants({ size: "lg", variant: highlighted ? "default" : "outline" }),
               "w-full",
             )}
           >
