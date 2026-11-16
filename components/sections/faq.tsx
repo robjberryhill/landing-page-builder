@@ -55,7 +55,8 @@ const faqs = [
  * The "FAQ" section: a centred heading and six questions in an accordion, one
  * open at a time, the first open on load. Rendered fifth in `app/page.tsx`,
  * after the pricing section. Its `id` is the target of the "FAQ" nav link
- * (`#faq` in `content/site.ts`) and of the three pricing tier links. The
+ * (`#faq` in `content/site.ts`), of the three pricing tier links and of
+ * "Read the FAQ" in the closing band. The
  * accordion is the generated one from `components/ui/`, composed here with
  * its text raised to the page's body size through `className`; each question
  * is a button inside an `h3`. Closed answers stay in the page, hidden, so the

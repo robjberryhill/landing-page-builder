@@ -1,3 +1,4 @@
+import ClosingCta from "@/components/sections/closing-cta";
 import Faq from "@/components/sections/faq";
 import Features from "@/components/sections/features";
 import Hero from "@/components/sections/hero";
@@ -12,6 +13,7 @@ export default function Home() {
       <Stats />
       <Pricing />
       <Faq />
+      <ClosingCta />
     </>
   );
 }

@@ -9,7 +9,8 @@ import { siteConfig } from "@/content/site";
  * print on the left, and this week's `BagLabel` on the right. The columns sit
  * side by side from `lg` up and stack below it, text first. Rendered first in
  * `app/page.tsx`. The primary link is `siteConfig.cta`, shared with the
- * header; the rest of the copy lives in this file.
+ * header and the closing call to action; the rest of the copy lives in this
+ * file.
  */
 export default function Hero() {
   return (
