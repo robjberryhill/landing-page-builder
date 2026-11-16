@@ -1,6 +1,6 @@
-// Shared by SiteHeader, MobileNav, SiteFooter and the hero (its primary link is
-// `cta`). Repeated items inside a section (features, tiers, FAQ entries, stats)
-// live in that section's file.
+// Shared by SiteHeader, MobileNav, SiteFooter, the hero and the closing call to
+// action (the primary link of both is `cta`). Repeated items inside a section
+// (features, tiers, FAQ entries, stats) live in that section's file.
 export const siteConfig = {
   name: "Authentic Coffee",
   tagline: "Roasted on Tuesdays. Shipped the same day.",
