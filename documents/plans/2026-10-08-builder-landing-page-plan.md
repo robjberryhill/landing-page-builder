@@ -98,7 +98,7 @@ landing-page-builder/
 │       ├── pricing.tsx
 │       └── stats.tsx
 ├── content/
-│   └── site.ts                  site name, tagline, email, nav items, CTA (shared by header, mobile nav, footer; the hero reads the CTA)
+│   └── site.ts                  site name, tagline, email, nav items, CTA (shared by header, mobile nav, footer; the hero and the closing band read the CTA)
 ├── documents/
 │   └── plans/
 │       └── 2026-10-08-builder-landing-page-plan.md
@@ -325,7 +325,7 @@ A practice repo for Builder.io Projects: one static marketing page for a fiction
 
 ## Done means
 
-`npm run validate` passes, the page still has exactly one `h1` and one `h2` per section, every new section has an `id` that matches its nav href, and the diff touches only the files the task needed.
+`npm run validate` passes, the page still has exactly one `h1` and one `h2` per section, every new section that something links to has an `id` that matches its nav href, and the diff touches only the files the task needed.
 ```
 
 `CLAUDE.md` holds one line, `Strictly follow the rules in ./AGENTS.md.`, which is Builder's own recommendation for Claude Code users and keeps local sessions on the same guide.

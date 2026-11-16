@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 // The generated panel takes no class of its own, so its open and close animation is
 // switched off for reduced motion from the wrapper.
-const noMotion = "motion-reduce:**:data-[slot=accordion-content]:animate-none!";
+const reducedMotion = "motion-reduce:**:data-[slot=accordion-content]:animate-none!";
 
 const faqs = [
   {
@@ -55,16 +55,15 @@ const faqs = [
  * The "FAQ" section: a centred heading and six questions in an accordion, one
  * open at a time, the first open on load. Rendered fifth in `app/page.tsx`,
  * after the pricing section. Its `id` is the target of the "FAQ" nav link
- * (`#faq` in `content/site.ts`), of the three pricing tier links and of
- * "Read the FAQ" in the closing band. The
- * accordion is the generated one from `components/ui/`, composed here with
- * its text raised to the page's body size through `className`; each question
- * is a button inside an `h3`. Closed answers stay in the page, hidden, so the
- * browser's find-in-page reaches them and opens the one it finds, and the
- * open and close animation is off for visitors who ask for reduced motion. An
- * item with a blank question or answer is left out. To add, remove or reword
- * a question, edit the `faqs` array at the top of this file and give a new
- * item its own `value`.
+ * (`#faq` in `content/site.ts`), of the three pricing tier links and of "Read
+ * the FAQ" in the closing band. The accordion is the generated one from
+ * `components/ui/`, composed here with its text raised to the page's body
+ * size through `className`; each question is a button inside an `h3`. Closed
+ * answers stay in the page, hidden, so the browser's find-in-page reaches
+ * them and opens the one it finds, and the open and close animation is off
+ * for visitors who ask for reduced motion. An item with a blank question or
+ * answer is left out. To add, remove or reword a question, edit the `faqs`
+ * array at the top of this file and give a new item its own `value`.
  */
 export default function Faq() {
   const answered = faqs.filter((faq) => hasText(faq.question) && hasText(faq.answer));
@@ -76,7 +75,7 @@ export default function Faq() {
         title="Questions people actually ask."
         description="If yours is missing, email us. We answer in the order received, after coffee."
       />
-      <div className={cn("mx-auto mt-12 max-w-3xl", noMotion)}>
+      <div className={cn("mx-auto mt-12 max-w-3xl", reducedMotion)}>
         <Accordion defaultValue={["roast"]} hiddenUntilFound>
           {answered.map((faq) => (
             <AccordionItem key={faq.value} value={faq.value}>
