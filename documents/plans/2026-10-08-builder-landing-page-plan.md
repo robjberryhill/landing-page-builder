@@ -325,7 +325,7 @@ A practice repo for Builder.io Projects: one static marketing page for a fiction
 
 ## Done means
 
-`npm run validate` passes, the page still has exactly one `h1` and one `h2` per section, every new section that something links to has an `id` that matches its nav href, and the diff touches only the files the task needed.
+`npm run validate` passes, the page still has exactly one `h1`, in the hero, and one `h2` in each section after it, every new section that something links to has an `id` that matches its nav href, and the diff touches only the files the task needed.
 ```
 
 `CLAUDE.md` holds one line, `Strictly follow the rules in ./AGENTS.md.`, which is Builder's own recommendation for Claude Code users and keeps local sessions on the same guide.
@@ -416,7 +416,7 @@ alwaysApply: false
 - One section per file in `components/sections/`, named after the section (`hero.tsx`, `pricing.tsx`). The default export is the section component; `app/page.tsx` renders them in page order.
 - Every section returns `<Section tone="...">`, with an `id` when something links to it. The `id` matches the nav `href` in `content/site.ts` when the section is in the nav; the hero and the closing call to action have none. Neighbouring sections use different tones; today the order is cream, white, espresso, cream, white, gold.
 - Every section except the hero and the closing call to action opens with `<SectionHeading title description />`; the hero has the page's only `h1`, and the closing band writes its own larger `h2`.
-- Copy lives in the file. Repeated items are a `const` array at the top (`features`, `stats`, `tiers` and `included`, `faqs`) mapped over the matching block from `components/site/`.
+- Copy lives in the file. Repeated items are a `const` array at the top (`features`, `stats`, `tiers` and `included`, `faqs`) mapped over the matching block from `components/site/`; the FAQ maps `faqs` over the generated accordion parts from `components/ui/` and has no block of its own.
 - Grids of cards and items: `grid gap-6 md:grid-cols-2` for the feature cards, `grid gap-6 lg:grid-cols-3` for the pricing tiers, `grid gap-6 md:grid-cols-3` for the short items under them, `grid gap-10 sm:grid-cols-2 lg:grid-cols-4` for stats (the wider gap stands in for the card borders the stats do not have). The hero and the closing band put their text and bag label in `grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center`. Mobile is single column.
 - A new section also gets a nav item in `content/site.ts` when people should be able to jump to it, and `npm run validate` must pass.
 - Numbered markers appear only for a real sequence, such as steps in time. Everything else is unnumbered.
@@ -683,7 +683,7 @@ Commit: `feat: FAQ and closing call to action`
 ### Phase 7: polish and build check
 
 1. Add `app/icon.svg`: a 64x64 SVG, cream background rounded, espresso cup-ring mark (same shapes as the logo). Delete `app/favicon.ico`.
-2. Run the accessibility pass: one `h1`, every section has an `h2`, every landmark present (`header`, `nav` x2 with labels, `main`, `footer`), all links have visible text, decorative SVGs are `aria-hidden`, focus is visible on every interactive element.
+2. Run the accessibility pass: one `h1`, every section after the hero has an `h2`, every landmark present (`header`, `nav` x2 with labels, `main`, `footer`), all links have visible text, decorative SVGs are `aria-hidden`, focus is visible on every interactive element.
 3. Run
    ```bash
    npm run build
