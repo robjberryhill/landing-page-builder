@@ -202,7 +202,7 @@ Contrast ratios computed during planning: espresso on cream 15.4, espresso on wh
 
 ### Type
 
-One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; item titles under an `h3` (`h4`) at body size, `font-semibold`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
+One family: Bricolage Grotesque (Google Fonts, variable, with the `opsz` axis so the same file renders text and display sizes). Loaded in `app/layout.tsx` with `next/font/google` as `--font-sans`; the fallback is the size-adjusted `Bricolage Grotesque Fallback` face that `next/font` generates from Arial, not the system sans. Headline scale: hero `text-5xl sm:text-6xl lg:text-7xl` at `font-semibold tracking-tight leading-[0.95]`; section titles `text-3xl sm:text-4xl`; card titles `text-xl`; inline item titles (the inline `FeatureCard`) at body size, `font-semibold`, at either heading level; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; measure capped at `max-w-prose`. Reason for the choice: the brief fixes a cream and dark brown palette, and the usual pairing of that palette with a high-contrast serif is the most recognisable AI-generated look. A warm grotesque with real character reads as "comedic and sincere" instead.
 
 ### Layout principles
 
@@ -367,7 +367,7 @@ Gold and ash fail contrast as text on cream, so text is espresso, cream, or grap
 
 ## Type
 
-One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl`; h4 at body size, `font-semibold`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
+One family, Bricolage Grotesque, loaded in `app/layout.tsx` as `--font-sans`. Headlines are `font-semibold tracking-tight`. Scale: h1 `text-5xl sm:text-6xl lg:text-7xl leading-[0.95]`; h2 `text-3xl sm:text-4xl`; h3 `text-xl` for card titles and sub-headings; the title of an inline item (the inline `FeatureCard`) at body size, `font-semibold`, whether it is an `h3` or an `h4`; stat values `text-4xl sm:text-5xl`; body `text-base sm:text-lg leading-relaxed`; long text capped with `max-w-prose`. Headings are plain sentences: no all-caps labels, no eyebrow tags above them, no single highlighted word.
 
 ## Voice
 
@@ -397,7 +397,7 @@ alwaysApply: false
 - Class names are joined with `cn` from `@/lib/utils`; a `className` prop, when present, is merged last.
 - Variants live in one object near the top of the file (`tones` in `section.tsx`, the `variant` branches in `feature-card.tsx`) so a new variant is a one-line addition.
 - Links styled as buttons: `<a href="..." className={cn(buttonVariants({ size: "lg" }))}>`. Always wrap the call in `cn(...)`. The generated `Button` merges its classes through `cn`; a bare `buttonVariants` call does not, and the outline variant then keeps the base `border-transparent` and shows no border. Real buttons: `<Button>`. Base UI components take `render` props (`render={<a href="..." />}`), never `asChild`.
-- Icons come from `lucide-react`, passed as the component (`icon: LucideIcon`) and rendered with `aria-hidden`.
+- Icons come from `lucide-react` and are rendered with `aria-hidden`. A block whose icon varies takes it as the component (`icon: LucideIcon`, as `FeatureCard` does); a block that always shows the same icon imports it (the `Check` in `PricingTier`).
 - Accessibility: headings keep their level (`h2` for section titles, `h3` inside cards, `h4` for items listed under an `h3`), decorative SVGs are `aria-hidden`, icon-only buttons carry an `sr-only` label, and every interactive element keeps the shadcn focus ring.
 - Server Component by default. `"use client"` appears only in a file with hooks or event handlers; `mobile-nav.tsx` is the example.
 ```
